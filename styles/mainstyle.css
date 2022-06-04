@@ -154,8 +154,12 @@ body {
     padding: 20px 20px 20px 20px;
     display: flex;
     flex-direction: row;
+    height: 250px;
     width:100%;
-    
+  }
+
+  .description {
+    height: 40px;
   }
 
   .business-title, .contact-title {
@@ -163,30 +167,20 @@ body {
     color: var(--white);
     font-size:20px;
     font-weight:bold;
-    margin-left: 20px;
   }
 
   .contact-title {
       margin-top:17px;
-      margin-left:50px;
   }
   .footer {
     background-color: var(--babyblue);
+    padding-top: 50px;
     text-align: center;
   }
 
   .about-us-section .business-description, .contact-section .contact-description {
     padding: 20px 20px 20px 20px;
-    margin-left: 10px;
-    width: 50%;
-  }
 
-  .contact-section .contact-description {
-      width:500px;
-  }
-  .contact-section{
-    margin-left: 150px;
-    width:500px;
   }
 
   .bold {
@@ -195,9 +189,10 @@ body {
   }
 
   .skincare-photo {
-      width:500px;
-      height:300px;
+      width:350px;
+      height:250px;
       border-radius: 80px;
+      border: outset 5px white;
   }
 
   .fa-envelope, .fa-phone {
@@ -219,7 +214,7 @@ body {
     font-size: 25px;
   }
 
-.slideshow-container {
+  .slideshow-container {
     max-width: 100%;
     position: relative;
     margin: auto;
