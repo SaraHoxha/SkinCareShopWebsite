@@ -2,11 +2,11 @@
     session_start();
     require_once 'databaseconfig.php';
     
-    define('NOT_LOGGED', 0);
+    define('NOT_LOGGED_IN', 0);
     define('SUCCESSFUL_LOGIN', 1);
     define('UNSUCCESSFUL_LOGIN', 2);
    
-    $logStatus = NOT_LOGGED; 
+    $logStatus = NOT_LOGGED_IN; 
     
      if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
         header("Location: home.php");
@@ -23,7 +23,7 @@
 
             $result = mysqli_query($connection, $query);
             $rows = mysqli_fetch_array($result);
-            
+
             if (mysqli_num_rows($result) == 1) {
                 
                 $_SESSION['UserID'] = $rows['CustomerId'];

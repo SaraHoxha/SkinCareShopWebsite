@@ -4,5 +4,10 @@
 	$password = "";
 	$database = "SkinCareShopDB";
 	
-	$connection = mysqli_connect($host, $username, $password, $database) or die("Cannot connect to database.");
+	$connection = mysqli_connect($host, $username, $password, $database);
+
+	if (mysqli_connect_errno()) {
+		echo "Failed to connect to database" . mysqli_connect_error();
+		exit();
+	  }
 ?>
