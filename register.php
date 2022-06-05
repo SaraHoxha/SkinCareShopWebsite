@@ -7,17 +7,9 @@
     define('UNSUCCESSFUL_REGISTERED', 2);
    
     $logStatus = NOT_REGISTERED;
-
-    function console_log($data, $add_script_tags = false) {
-        $command = 'console.log('. json_encode($data, JSON_HEX_TAG).');';
-        if ($add_script_tags) {
-            $command = '<script>'. $command . '</script>';
-        }
-        echo $command;
-    }
     
-     if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
-        header("Location: home.php");
+    if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
+         header("Location: home.php");
     } 
     else {
         $firstName ='';
@@ -30,6 +22,7 @@
         $password = '';
  
         if (isset($_POST['UserUsername'])) {
+           
             $firstName = $_POST['UserFName'];
             $lastName = $_POST['UserLName'];
             $email = $_POST['UserEmail'];
@@ -92,9 +85,9 @@
         <div class="inputs">
 			<input type="text" name="UserAddress" placeholder="Address" required>
 			<br>
-			<input type="text" name="UserPostalCode" placeholder="Postal Code" required>
+			<input type="number" name="UserPostalCode" placeholder="Postal Code" required>
             <br>
-			<input type="text" name="UserPersonalID" placeholder="Card ID Number" required>
+			<input type="number" name="UserPersonalID" placeholder="Card ID Number" required>
 		</div>
 	</div>
 		<div class="right-column column">

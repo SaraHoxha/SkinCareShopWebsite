@@ -9,7 +9,7 @@
     $logStatus = NOT_LOGGED_IN; 
     
      if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
-       // header("Location: home.php");
+         header("Location: home.php");
     } 
     else {
         $username = '';
