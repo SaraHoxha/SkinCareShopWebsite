@@ -9,7 +9,7 @@
     $logStatus = NOT_LOGGED_IN; 
     
      if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
-        header("Location: home.php");
+       // header("Location: home.php");
     } 
     else {
         $username = '';
@@ -45,7 +45,6 @@
 <html>
     <head>
         <link href="styles/loginstyle.css" rel="stylesheet">
-        <script src="assets/js/jquery.js"></script>
     </head>
     <body>
         <?php include "header.html"; ?>
@@ -60,9 +59,10 @@
 	
 		<div class="right-column">
 		<h5>Login</h5>
-		<p>New here? <a href="#">Register</a> right now!</p>
+		<p>New here? <a href="register.php">Register</a> right now!</p>
         <form id="login-form" action="" method="post">
 		<div class="inputs">
+            <br>
 			<input type="text" name="UserUsername" placeholder="Username" required>
 			<br>
 			<input type="password" name="UserPassword" placeholder="Password" required>
