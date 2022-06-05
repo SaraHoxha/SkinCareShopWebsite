@@ -15,8 +15,6 @@
         }
         echo $command;
     }
-
-    
     
      if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
         header("Location: home.php");
@@ -41,13 +39,15 @@
             $username = $_POST['UserUsername'];
             $password = $_POST['UserPassword'];
             
-            $query = "INSERT INTO `customer` (FirstName, LastName, Email, Address, PostalCode, PersonalCardId, Username, Passwrd)  VALUES('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardID', '$username', '$password')";
+            $query = "INSERT INTO `customer` (`FirstName`, `LastName`, `Email`, `Address`, `PostalCode`, `PersonalCardId`, `Username`, `Passwrd`)  VALUES ('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardID', '$username', '$password')";
 
             $result = mysqli_query($connection, $query);
 
             if ($result) {
                 $sql = "SELECT * FROM `customer` WHERE Email = '$email'";
-                $rows = mysqli_fetch_array($mysqli_query($connection, $sql));
+                $rows = mysqli_fetch_array(mysqli_query($connection, $sql));
+
+                if(mysqli_num_rows(mysqli_query($connection, $sql)) == 1) {
 
                 $_SESSION['UserID'] = $rows['CustomerId'];
                 $_SESSION['Username'] = $rows['Username'];
@@ -56,10 +56,10 @@
 
                 $logStatus = SUCCESSFUL_REGISTERED;
                 header("Location: home.php");
+                }
             }
             else {
                 $logStatus = UNSUCCESSFUL_REGISTERED;
-                echo mysqli_error($connection);
             }
         } 
     } 
