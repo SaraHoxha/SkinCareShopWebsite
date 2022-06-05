@@ -1,0 +1,51 @@
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-gap: 1rem;
+  margin: 2em; 
+}
+
+.product{
+  display: flex;
+  flex-flow: column;
+  border: 1px solid #eee;
+  padding: 1em; 
+}
+
+.product:hover{
+    border: 1px solid #fff;
+    box-shadow: 0 5px 40px rgba(0,0,0,.3);
+ }
+ 
+.product-photo {
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+}
+
+.product-name{
+    font-family: 'Cinzel', serif;
+      margin: 1em 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+}
+
+.product-price {
+    text-transform: uppercase;
+    margin-right: -100px;
+    text-transform: underline;
+}
+
+.btn-buy {
+    margin-top: auto;
+    display: block;
+    align-self: flex-end;
+    font-size: 1rem;
+    padding: .8rem 1.5rem;
+    border: 1px solid #b0d2ec;
+    background-color: #b0d2ec;
+    color: #fff;
+}
+
+  
