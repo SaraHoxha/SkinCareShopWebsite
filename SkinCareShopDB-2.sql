@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2022 at 12:52 AM
+-- Generation Time: Jun 08, 2022 at 01:08 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -50,7 +50,6 @@ CREATE TABLE `orderitem` (
   `CustomerId` int(11) DEFAULT NULL,
   `ProductId` int(11) DEFAULT NULL,
   `OrderDate` date DEFAULT NULL,
-  `RequestedDate` date DEFAULT NULL,
   `ShipDate` date DEFAULT NULL,
   `OrderState` varchar(15) DEFAULT NULL,
   `QuantityOrdered` int(11) DEFAULT NULL
