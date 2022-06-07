@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2022 at 12:24 AM
+-- Generation Time: Jun 08, 2022 at 12:52 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `customer` (
   `CustomerId` int(11) NOT NULL,
   `Username` varchar(50) DEFAULT NULL,
-  `PersonalCardId` int(11) DEFAULT NULL,
+  `CardNumber` int(11) DEFAULT NULL,
   `Email` varchar(50) DEFAULT NULL,
   `Passwrd` varchar(50) DEFAULT NULL,
   `FirstName` varchar(50) DEFAULT NULL,
@@ -84,14 +84,14 @@ CREATE TABLE `product` (
   `QuantityAvailable` int(11) DEFAULT NULL,
   `Price` double DEFAULT NULL,
   `Category` varchar(100) DEFAULT NULL,
-  `Photos` text DEFAULT NULL
+  `ProductImage` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`ProductId`, `ProductName`, `ProductBrand`, `ProductDescription`, `QuantityAvailable`, `Price`, `Category`, `Photos`) VALUES
+INSERT INTO `product` (`ProductId`, `ProductName`, `ProductBrand`, `ProductDescription`, `QuantityAvailable`, `Price`, `Category`, `ProductImage`) VALUES
 (1, 'Body Mist', 'Dare Deep', 'Body mist perfect for every age. Unique body spray lotion with hyaluronic acid, sunflower seed oil, and vitamins B5 and E intensely hydrates skin for 48 hours. Exclusive HydroSensitiv Complex™ with soothing blue daisy deepens dynamic hydration and soothes skin to improve the quality of sensitive skin over time .', 5, 19, 'Body', 'BodyMist.jpeg'),
 (2, 'Aromatica Scalp Scaling Shampoo', 'Rosemary', 'Frequent hair styling such as dyeing, perming, and drying damages hair and weakens your scalp. Rosemary 3-in-1 treatment not only intensively nourishes hair but also adds shine and softness to your hair. 3-in-1 multi care is the right solution to damaged hair troubles.', 7, 23, 'Hair', 'Aromatica.jpeg'),
 (3, 'Hyaluronic Acid Watery Sun Gel SPF 50+', 'ISNTREE', '8 Types of Hyaluronic Acid, Strong Protection Against UVA and UVB Rays, No White Cast, Reef-safe, Non-nano Sunscreen. With a great rating of 4.5 out of 5.', 15, 26, 'Body', 'Sunscream.jpeg'),
@@ -117,7 +117,7 @@ INSERT INTO `product` (`ProductId`, `ProductName`, `ProductBrand`, `ProductDescr
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`CustomerId`),
-  ADD UNIQUE KEY `PersonalCardId` (`PersonalCardId`),
+  ADD UNIQUE KEY `PersonalCardId` (`CardNumber`),
   ADD UNIQUE KEY `Passwrd` (`Passwrd`);
 
 --
