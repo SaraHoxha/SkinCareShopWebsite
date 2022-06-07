@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once 'databaseconfig.php';
 
 $query = "SELECT * FROM `product` LIMIT 8";

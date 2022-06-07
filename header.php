@@ -25,7 +25,7 @@ $_SESSION['logStatus'] == NOT_LOGGED_IN;
                         <li class="zoom"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
                         <li class="zoom"><i class="fa-solid fa-user"><button class="dropdown">
                         <div class="drop-content">
-                            <?php if ($_SESSION['logStatus'] === NOT_LOGGED_IN) { ?> <a href="login.php">Log In</a>
+                            <?php if ($_SESSION['logStatus'] == NOT_LOGGED_IN) { ?> <a href="login.php">Log In</a>
                             <?php } else { ?>
                             <a href="logout.php">Log Out</a>
                             <?php } ?>

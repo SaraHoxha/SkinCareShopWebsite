@@ -6,7 +6,9 @@
     define('SUCCESSFUL_REGISTERED', 1);
     define('UNSUCCESSFUL_REGISTERED', 2);
    
-    $logStatus = NOT_REGISTERED;
+    if(!isset($_SESSION['logStatus'])) {
+        $_SESSION['logStatus'] == NOT_REGISTERED;
+     }
     
     if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
         header("Location: home.php");
@@ -28,15 +30,14 @@
             $email = $_POST['UserEmail'];
             $address = $_POST['UserAddress'];
             $postalCode =$_POST['UserPostalCode'];
-            $cardID = $_POST['UserPersonalID'];
+            $cardNumber = $_POST['UserCardNumber'];
             $username = $_POST['UserUsername'];
             $password = $_POST['UserPassword'];
             
-            $query = "INSERT INTO `customer` (`FirstName`, `LastName`, `Email`, `Address`, `PostalCode`, `PersonalCardId`, `Username`, `Passwrd`)  VALUES ('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardID', '$username', '$password')";
+            $query = "INSERT INTO `customer` (`FirstName`, `LastName`, `Email`, `Address`, `PostalCode`, `PersonalCardId`, `Username`, `Passwrd`)  VALUES ('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardNumber', '$username', '$password')";
 
-            $result = mysqli_query($connection, $query);
+             if(mysqli_query($connection, $query)) {
 
-            if ($result) {
                 $sql = "SELECT * FROM `customer` WHERE Email = '$email'";
                 $rows = mysqli_fetch_array(mysqli_query($connection, $sql));
 
@@ -47,14 +48,17 @@
                 $_SESSION['Email'] = $rows['Email'];
                 $_SESSION['Name'] = $rows['FirstName'];
 
-                $logStatus = SUCCESSFUL_REGISTERED;
+                $_SESSION['logStatus'] = SUCCESSFUL_REGISTERED;
                 header("Location: home.php");
-                }
             }
+        }
             else {
-                $logStatus = UNSUCCESSFUL_REGISTERED;
+                $_SESSION['logStatus'] = UNSUCCESSFUL_REGISTERED;
             }
         } 
+        else {
+            $_SESSION['logStatus'] = UNSUCCESSFUL_REGISTERED;
+        }
     } 
 ?>
 
@@ -88,7 +92,7 @@
 			<br>
 			<input type="number" name="UserPostalCode" placeholder="Postal Code" required>
             <br>
-			<input type="number" name="UserPersonalID" placeholder="Card ID Number" required>
+			<input type="number" name="UserCardNumber" placeholder="Card Number" required>
 		</div>
 	</div>
 		<div class="right-column column">
