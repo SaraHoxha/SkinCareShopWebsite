@@ -6,10 +6,10 @@
     define('SUCCESSFUL_LOGIN', 1);
     define('UNSUCCESSFUL_LOGIN', 2);
    
-    $logStatus = NOT_LOGGED_IN; 
+    $_SESSION['logStatus'] = NOT_LOGGED_IN; 
     
      if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
-       //  header("Location: home.php");
+        header("Location: home.php");
     } 
     else {
         $username = '';
@@ -31,11 +31,11 @@
                 $_SESSION['Email'] = $rows['Email'];
                 $_SESSION['Name'] = $rows['FirstName'];
 
-                $logStatus = SUCCESSFUL_LOGIN;
+                $_SESSION['logStatus'] = SUCCESSFUL_LOGIN;
                 header("Location: home.php");
             }
             else {
-                $logStatus = UNSUCCESSFUL_LOGIN;
+                $_SESSION['logStatus'] = UNSUCCESSFUL_LOGIN;
             }
         } 
     } 
@@ -48,7 +48,7 @@
         <link href="styles/loginstyle.css" rel="stylesheet">
     </head>
     <body>
-        <?php include "header.html"; ?>
+        <?php include "header.php"; ?>
         
         <div class="login-container">
         <div class="login-form">
@@ -69,7 +69,7 @@
 			<input type="password" name="UserPassword" placeholder="Password" required>
 		</div>
         <?php
-            if ($logStatus == UNSUCCESSFUL_LOGIN) {  ?>
+            if ($_SESSION['logStatus'] == UNSUCCESSFUL_LOGIN) {  ?>
             <span class="error">Invalid username or password, please try again.</span>
         <?php   }  ?>
         <br><br>

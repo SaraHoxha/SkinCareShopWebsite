@@ -18,7 +18,7 @@ $result = mysqli_query($connection, $query);
 </head>
 <body>
     <div class="page-container">
-    <?php include "header.html" ;?>
+    <?php include "header.php" ;?>
 <div class="slideshow-container">
     <div class="banner">
       <img src="images/banner1.jpeg" style="width:100%">

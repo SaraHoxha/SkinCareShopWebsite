@@ -25,7 +25,7 @@ $result = mysqli_query($connection, $query);
         <link rel="stylesheet" href="styles/productstyle.css">
     </head>
     <body>
-        <?php include "header.html"; ?>
+        <?php include "header.php"; ?>
         <div class="title">
             <h1><?php if (isset($_GET['Category'])) { print $_GET['Category']; }?> Products</h1>
         </div>

@@ -9,7 +9,7 @@
     $logStatus = NOT_REGISTERED;
     
     if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
-     //    header("Location: home.php");
+        header("Location: home.php");
     } 
     else {
         $firstName ='';
@@ -66,7 +66,7 @@
         <link href="styles/registerstyle.css" rel="stylesheet">
     </head>
     <body>
-        <?php include "header.html"; ?>
+        <?php include "header.php"; ?>
         
         <div class="register-container">
         <div class="register-form"> 
