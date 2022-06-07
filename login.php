@@ -9,7 +9,7 @@
     $logStatus = NOT_LOGGED_IN; 
     
      if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
-         header("Location: home.php");
+       //  header("Location: home.php");
     } 
     else {
         $username = '';
@@ -42,8 +42,9 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <title>Login</title>
         <link href="styles/loginstyle.css" rel="stylesheet">
     </head>
     <body>

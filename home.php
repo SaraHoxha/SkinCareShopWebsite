@@ -2,7 +2,7 @@
 session_start();
 require_once 'databaseconfig.php';
 
-$query = "SELECT * FROM `product` LIMIT 4";
+$query = "SELECT * FROM `product` LIMIT 8";
 $result = mysqli_query($connection, $query);
 ?>
 
@@ -43,14 +43,14 @@ $result = mysqli_query($connection, $query);
             <img src="images/<?php print $product['ProductImage']; ?>"> </a>
             <h4 class="product-name"><?php print $product['ProductName']; ?></h4>
             <h3 class="product-price">Price: <?php print $product['Price'] ?> € </h3>
-            <button class="btn btn-buy">Add to cart</button>  
+            <button class="add-to-cart">Add to cart</button>  
           </div>
         <?php
               }
         ?>
     </div>
     <div class="products-button">
-        <button class="button button5">SEE ALL</button>
+        <button  onclick="location.href='products.php'" type="button" class="button button5" >SEE ALL</button>
     </div>
     <br>
     <?php include "footer.html"; ?>
