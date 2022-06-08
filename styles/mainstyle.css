@@ -214,14 +214,14 @@ display: flex;
     font-size: 25px;
   }
 
-  .dropdown{
+  .dropdown {
     font-size: 13px;
     color: #b0d2ec;
     border: none;
     margin-right: 100%;
   }
 
-  .drop-content{
+  .drop-content {
     display: none;
     position: absolute;
     background-color: rgb(240, 248, 255);
@@ -232,7 +232,7 @@ display: flex;
     margin-left:-30px;
   }
 
-  .drop-content.cart {
+   .cart {
     margin-top:-5px;
   }
 
@@ -250,7 +250,7 @@ display: flex;
   .fa-user:hover .drop-content,  .fa-cart-shopping:hover .drop-content {
     display: block;
   }
-  
+
   .fa-user:hover .dropdown, .fa-cart-shopping:hover .dropdown {
     background-color: #d0aee0;
   }

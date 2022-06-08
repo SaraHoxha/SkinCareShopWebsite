@@ -6,7 +6,7 @@ div.products {
     margin: 2em; 
 }
 
-div.products > div.product{
+div.products > div.product {
     display: flex;
     flex-flow: column;
     border: 1px solid #eee;
@@ -40,19 +40,7 @@ div.products > div.product{
 
 .product-price {
     text-transform: uppercase;
-    margin-right: -100px;
-    text-transform: underline;
-}
-
-button.add-to-cart {
-    margin-top: auto;
-    display: block;
-    align-self: flex-end;
-    font-size: 1rem;
-    padding: .8rem 1.5rem;
-    border: 1px solid #b0d2ec;
-    background-color: #b0d2ec;
-    color: #fff;
+    margin-right: -100px; 
 }
 
 .title h1 {
@@ -68,7 +56,7 @@ button.add-to-cart {
         grid-template-rows: 27px 0;
         grid-gap: 20px;
         align-items: center;
-    }
+ }
     
 .title h1:after,.title h1:before {
         content: '';
@@ -76,6 +64,6 @@ button.add-to-cart {
         border-bottom: 1px solid #9b53c0;
         border-top: 1px solid #9b53c0;
         height: 6px;
-    }
+}
 
   

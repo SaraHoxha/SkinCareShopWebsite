@@ -34,12 +34,11 @@ $result = mysqli_query($connection, $query);
                while ($product = mysqli_fetch_array($result)) {
          ?>
             <div class="product">
-            <a href="product.php?Id=<?php print $product['ProductId']; ?>">
+            <a href="productdetail.php?Id=<?php print $product['ProductId']; ?>">
             <div class="photo">
             <img src="images/<?php print $product['ProductImage']; ?>"> </div> </a>
             <h4 class="product-name"><?php print $product['ProductName']; ?></h4>
-            <h3 class="product-price">Price: <?php print $product['Price'] ?> € </h3>
-            <button class="add-to-cart">Add to cart</button>  
+            <h3 class="product-price">Price: <?php print $product['Price'] ?> € </h3> 
           </div>
         <?php
               }
