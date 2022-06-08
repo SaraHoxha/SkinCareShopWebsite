@@ -7,8 +7,8 @@
     define('UNSUCCESSFUL_REGISTERED', 2);
    
     if(!isset($_SESSION['logStatus'])) {
-        $_SESSION['logStatus'] == NOT_REGISTERED;
-     }
+    $_SESSION['logStatus'] == NOT_REGISTERED;
+    }
     
     if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
         header("Location: home.php");
@@ -34,7 +34,7 @@
             $username = $_POST['UserUsername'];
             $password = $_POST['UserPassword'];
             
-            $query = "INSERT INTO `customer` (`FirstName`, `LastName`, `Email`, `Address`, `PostalCode`, `CardnUMBER`, `Username`, `Passwrd`)  VALUES ('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardNumber', '$username', '$password')";
+            $query = "INSERT INTO `customer` (`FirstName`, `LastName`, `Email`, `Address`, `PostalCode`, `CardNumber`, `Username`, `Passwrd`)  VALUES ('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardNumber', '$username', '$password')";
 
              if(mysqli_query($connection, $query)) {
 
@@ -55,10 +55,10 @@
             else {
                 $_SESSION['logStatus'] = UNSUCCESSFUL_REGISTERED;
             }
-        } 
-        else {
-            $_SESSION['logStatus'] = UNSUCCESSFUL_REGISTERED;
         }
+         else {
+            $_SESSION['logStatus'] = UNSUCCESSFUL_REGISTERED;
+        } 
     } 
 ?>
 
@@ -104,7 +104,7 @@
         <?php
             if ($_SESSION['logStatus'] == UNSUCCESSFUL_REGISTERED) {  ?>
             <span class="error">There was a problem with your registration, please try again.</span>
-        <?php   }  ?>
+        <?php }  ?>
         <br><br>
         <br><br>
         <button class="register-button">Register</button>

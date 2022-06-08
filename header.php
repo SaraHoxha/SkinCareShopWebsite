@@ -4,6 +4,7 @@ session_start();
 
 define('NOT_LOGGED_IN', 0);
 define('LOGGED_IN', 1);
+define('UNSUCCESSFUL', 2);
 
 if(!isset($_SESSION['logStatus'])) {
 $_SESSION['logStatus'] = NOT_LOGGED_IN;
@@ -24,7 +25,7 @@ $_SESSION['logStatus'] = NOT_LOGGED_IN;
                     <div class="logo-container"> <img class="logo" src="images/logo.png"></div>
                     <ul class="customer-actions-list">
                         <li class="zoom"><i class="fa-solid fa-cart-shopping"><button class="dropdown"> 
-                            <?php if ($_SESSION['logStatus'] != NOT_LOGGED_IN) { ?> 
+                            <?php if ($_SESSION['logStatus'] == LOGGED_IN) { ?> 
                                 <div class="drop-content cart">
                                 <a href="#">Cart</a>
                                 </div>
@@ -33,8 +34,8 @@ $_SESSION['logStatus'] = NOT_LOGGED_IN;
                 </li>
                         <li class="zoom"><i class="fa-solid fa-user"><button class="dropdown">
                         <div class="drop-content">
-                            <?php if ($_SESSION['logStatus'] == NOT_LOGGED_IN) { ?> <a href="login.php">Log In</a>
-                            <?php } else { ?>
+                            <?php if ($_SESSION['logStatus'] == NOT_LOGGED_IN || $_SESSION['logStatus'] == UNSUCCESSFUL ) { ?> <a href="login.php">Log In</a>
+                            <?php } else if ($_SESSION['logStatus'] == LOGGED_IN) { ?>
                             <a href="logout.php">Log Out</a>
                             <?php } ?>
                         </div>
