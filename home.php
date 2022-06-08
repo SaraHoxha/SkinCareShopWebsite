@@ -41,7 +41,8 @@ $result = mysqli_query($connection, $query);
          ?>
             <div class="product">
             <a href="product.php?id=<?php print $product['ProductId']; ?>">
-            <img src="images/<?php print $product['ProductImage']; ?>"> </a>
+            <div class="photo">
+            <img src="images/<?php print $product['ProductImage']; ?>"> </div> </a>
             <h4 class="product-name"><?php print $product['ProductName']; ?></h4>
             <h3 class="product-price">Price: <?php print $product['Price'] ?> € </h3>
             <button class="add-to-cart">Add to cart</button>  

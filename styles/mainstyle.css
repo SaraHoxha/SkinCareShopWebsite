@@ -6,6 +6,7 @@
 
 * {
     box-sizing: border-box;
+    
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
@@ -13,7 +14,7 @@
 }
 
 body {
-    background-color: var(--white);
+    background-color:var(--white);
 }
 .page-container {
     width: 100%;
@@ -29,24 +30,23 @@ body {
 }
 
 .top-bar {
-    display: flex;
-    flex-direction:row;
-    margin-top:20px;
+  display: flex;
+  flex-direction:row;
+  margin-top:40px;
 }
 
 .nav-list {
-    display: flex;
-    flex-direction: row; 
-    margin-top:60px;
-   margin-left:35%;
+display: flex;
+ flex-direction: row; 
+ margin-top:5px;
+ margin-left:30%;
 }
 
 .customer-actions-list {
-    display: flex;
-    flex-direction: row; 
-    margin-top:70px;
-    margin-right: 100px;
-    margin-left:30%;
+  display: flex;
+  flex-direction: row; 
+  margin-top:100px;
+  margin-left:-55%;
 }
 
 .logo-container {
@@ -210,34 +210,51 @@ body {
   }
 
   .fa-user, .fa-cart-shopping{
-      color:white;
+    color:white;
     font-size: 25px;
   }
+
   .dropdown{
-    padding: 0px;
-    font-size: 16px;
+    font-size: 13px;
     color: #b0d2ec;
     border: none;
-    margin-right: 300%;
+    margin-right: 100%;
   }
+
   .drop-content{
     display: none;
     position: absolute;
-    background-color: aliceblue;
-    min-width: 160px;
+    background-color: rgb(240, 248, 255);
+    min-width: 100px;
+    border-radius:40%;
     z-index: 1;
+    margin-top:-15px;
+    margin-left:-30px;
   }
-  .drop-content a{
-    color: black;
+
+  .drop-content.cart {
+    margin-top:-5px;
+  }
+
+  .drop-content a {
+    color: rgb(17, 17, 17);
     text-decoration: none;
     display: block;
   }
-  .drop-content a:hover{
-    background-color: aqua;
-  }
-  .fa-user:hover .drop-content{display: block;}
-  .fa-user:hover .dropdown{background-color: aqua;}
 
+  .drop-content a:hover{
+    background-color: #d0aee0;
+    border-radius:40%;
+  }
+
+  .fa-user:hover .drop-content,  .fa-cart-shopping:hover .drop-content {
+    display: block;
+  }
+  
+  .fa-user:hover .dropdown, .fa-cart-shopping:hover .dropdown {
+    background-color: #d0aee0;
+  }
+ 
   .slideshow-container {
     max-width: 100%;
     position: relative;

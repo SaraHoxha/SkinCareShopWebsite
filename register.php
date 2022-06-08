@@ -34,7 +34,7 @@
             $username = $_POST['UserUsername'];
             $password = $_POST['UserPassword'];
             
-            $query = "INSERT INTO `customer` (`FirstName`, `LastName`, `Email`, `Address`, `PostalCode`, `PersonalCardId`, `Username`, `Passwrd`)  VALUES ('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardNumber', '$username', '$password')";
+            $query = "INSERT INTO `customer` (`FirstName`, `LastName`, `Email`, `Address`, `PostalCode`, `CardnUMBER`, `Username`, `Passwrd`)  VALUES ('$firstName', '$lastName', '$email', '$address', '$postalCode', '$cardNumber', '$username', '$password')";
 
              if(mysqli_query($connection, $query)) {
 
@@ -102,12 +102,12 @@
 			<input type="password" name="UserPassword" placeholder="Password" required>
 		</div>
         <?php
-            if ($logStatus == UNSUCCESSFUL_REGISTERED) {  ?>
+            if ($_SESSION['logStatus'] == UNSUCCESSFUL_REGISTERED) {  ?>
             <span class="error">There was a problem with your registration, please try again.</span>
         <?php   }  ?>
         <br><br>
         <br><br>
-        <button>Register</button>
+        <button class="register-button">Register</button>
         </div>
         </form>
         </div>	

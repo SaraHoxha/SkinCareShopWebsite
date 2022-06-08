@@ -73,7 +73,7 @@
             <span class="error">Invalid username or password, please try again.</span>
         <?php   }  ?>
         <br><br>
-        <button>Login</button>
+        <button class="login-button">Login</button>
         </form>
         </div>	
      </div>
