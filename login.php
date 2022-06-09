@@ -2,11 +2,11 @@
     session_start();
     require_once 'databaseconfig.php';
     
-    define('NOT_LOGGED_IN', 0);
-    define('SUCCESSFUL_LOGIN', 1);
-    define('UNSUCCESSFUL_LOGIN', 2);
+    define('NOT_AUTHENTICATED', 0);
+    define('SUCCESSFUL', 1);
+    define('UNSUCCESSFUL', 3);
    
-    $_SESSION['logStatus'] = NOT_LOGGED_IN; 
+    $_SESSION['logStatus'] = NOT_AUTHENTICATED; 
     
      if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
         header("Location: home.php");
@@ -31,11 +31,11 @@
                 $_SESSION['Email'] = $rows['Email'];
                 $_SESSION['Name'] = $rows['FirstName'];
 
-                $_SESSION['logStatus'] = SUCCESSFUL_LOGIN;
+                $_SESSION['logStatus'] = SUCCESSFUL;
                 header("Location: home.php");
             }
             else {
-                $_SESSION['logStatus'] = UNSUCCESSFUL_LOGIN;
+                $_SESSION['logStatus'] = UNSUCCESSFUL;
             }
         } 
     } 
@@ -69,7 +69,7 @@
 			<input type="password" name="UserPassword" placeholder="Password" required>
 		</div>
         <?php
-            if ($_SESSION['logStatus'] == UNSUCCESSFUL_LOGIN) {  ?>
+            if ($_SESSION['logStatus'] == UNSUCCESSFUL) {  ?>
             <span class="error">Invalid username or password, please try again.</span>
         <?php   }  ?>
         <br><br>

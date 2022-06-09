@@ -2,14 +2,12 @@
     session_start();
     require_once 'databaseconfig.php';
     
-    define('NOT_REGISTERED', 0);
-    define('SUCCESSFUL_REGISTERED', 1);
-    define('UNSUCCESSFUL_REGISTERED', 2);
+    define('NOT_AUTHENTICATED', 0);
+    define('SUCCESSFUL', 1);
+    define('UNSUCCESSFUL', 2);
    
-    if(!isset($_SESSION['logStatus'])) {
-    $_SESSION['logStatus'] == NOT_REGISTERED;
-    }
-    
+    $_SESSION['logStatus'] == NOT_AUTHENTICATED;
+
     if (isset($_SESSION['UserID']) && $_SESSION['UserID']!='') {
         header("Location: home.php");
     } 
@@ -48,16 +46,13 @@
                 $_SESSION['Email'] = $rows['Email'];
                 $_SESSION['Name'] = $rows['FirstName'];
 
-                $_SESSION['logStatus'] = SUCCESSFUL_REGISTERED;
+                $_SESSION['logStatus'] = SUCCESSFUL;
                 header("Location: home.php");
             }
         }
-            else {
-                $_SESSION['logStatus'] = UNSUCCESSFUL_REGISTERED;
-            }
-        }
-         else {
-            $_SESSION['logStatus'] = UNSUCCESSFUL_REGISTERED;
+        else {
+            $_SESSION['logStatus'] = UNSUCCESSFUL;
+        } 
         } 
     } 
 ?>
@@ -102,9 +97,9 @@
 			<input type="password" name="UserPassword" placeholder="Password" required>
 		</div>
         <?php
-            if ($_SESSION['logStatus'] == UNSUCCESSFUL_REGISTERED) {  ?>
+            if ($_SESSION['logStatus'] == UNSUCCESSFUL) {  ?>
             <span class="error">There was a problem with your registration, please try again.</span>
-        <?php }  ?>
+        <?php   }  ?>
         <br><br>
         <br><br>
         <button class="register-button">Register</button>
