@@ -55,6 +55,7 @@ $result = mysqli_query($connection, $query);
     </div>
     <br>
     <?php include "footer.html"; ?>
+    <?php include "card.php"; ?>
 </div>
 </div>
 </body>

@@ -24,7 +24,7 @@ $_SESSION['logStatus'] = NOT_LOGGED_IN;
                 <div class="top-bar">
                     <div class="logo-container"> <img class="logo" src="images/logo.png"></div>
                     <ul class="customer-actions-list">
-                        <li class="zoom"><i class="fa-solid fa-cart-shopping"><button class="dropdown"> 
+                        <li class="zoom"><i class="fa-solid fa-cart-shopping"> 
                             <?php if ($_SESSION['logStatus'] == LOGGED_IN) { ?> 
                                 <div class="drop-content cart">
                                 <a href="#">Cart</a>
