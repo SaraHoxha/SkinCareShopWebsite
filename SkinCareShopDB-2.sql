@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2022 at 01:55 AM
+-- Generation Time: Jun 11, 2022 at 04:35 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -47,26 +47,10 @@ CREATE TABLE `customer` (
 
 CREATE TABLE `orderitem` (
   `OrderItemId` int(11) NOT NULL,
-  `CustomerId` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
   `ProductId` int(11) DEFAULT NULL,
-  `OrderDate` date DEFAULT NULL,
   `ShipDate` date DEFAULT NULL,
-  `OrderState` varchar(15) DEFAULT NULL,
   `QuantityOrdered` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orderpayment`
---
-
-CREATE TABLE `orderpayment` (
-  `OrderPaymentId` int(11) NOT NULL,
-  `CustomerId` int(11) DEFAULT NULL,
-  `OrderItemId` int(11) DEFAULT NULL,
-  `PaymentDate` date DEFAULT NULL,
-  `TotalAmount` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -106,10 +90,10 @@ INSERT INTO `product` (`ProductId`, `ProductName`, `ProductBrand`, `ProductDescr
 (13, 'Be Beautiful Luminous CC', 'THANK YOU FARMER', 'Give your skin a luminous glow with this SPF 30-fortified CC cream that corrects skin tone, making it look more even, lustrous and flawless while protecting it from skin darkening and aging.', 5, 34, 'Skincare', 'CorrectionCream.jpeg'),
 (14, 'Clearing BB Cream', 'Purito', 'Healthy-Looking GlowFlawless CoverageEO & Fragrance FreeThis BB cream provides a natural and radiant finish, and strengthens the skin barrier. It gently absorbs into the skin and has a long-lasting formula. This product does not contain artificial fragrances, essential oils, and harmful ingredients, which can cause irritation, making it great for people with all skin types including sensitive skin.', 2, 120, 'Skincare', 'ClearingBBCream.jpeg'),
 (15, 'Glow Tension SPF50+ PA+++', 'MISSHA', 'MISSHA Glow Tension SPF50+ PA+++ is available in 6 shades that create naturally plump, dewy skin. A tri-functional product: Anti-wrinkle + Whitening + UV Blocking. With Glow Moistension Complex that infused with amino acid, five kinds of hyaluronic acid, and collagen to prepare your skin for makeup. Perfect coverage provided by Micro Cover Poweder for flawless finish. Powerful adherence and consistency by Light-Fit Formula. How to use: Apply proper amount on a puff and pat lightly on the face.', 21, 22, 'Skincare', 'Foundation.jpeg'),
-(25, 'Perfect Canvas Airpod Foundation', 'Temptu', 'Introducing a next-generation Perfect Canvas Foundation. Now with skin-nourishing natural ingredients, improved sprayability, advanced color payoff, and 24 shades for light-as-air, natural-looking coverage that lasts all day.', 4, 65, 'Make Up', 'Airbrush.jpg'),
-(26, 'Mineral Multi-Master Bronzing Powder', 'MommyMakeUp', 'This Mineral Based PRESSED bronzer can be used on your face, eyes, and body!\r\nNo loose powder mess! Formulated without talc, gluten, phthalates, fragrance, GMO, parabens, or corn. It’s easy to blend formula allows you to start with a subtle golden glow, and build the color to a deeper, yet natural looking, tan, Talc-free, paraben-free, fragrance-free, noncomodegenic, cruelty-free, allergy tested. Made in USA.', 12, 32, 'Make Up', 'MommyMakeup.jpg'),
-(27, 'All in one Make Up Kit ', 'Moobirlet', 'Contains multi-color matt eye shadow and glitter eye shadow, lip gloss, eyebrow cream, makeup pen, concealer, eye cream, etc., to meet your daily makeup needs. High quality ingredients with silky shine color, easy to blend and apply, creating clear and brilliant three-dimensional face makeup finish. Suitable for a variety of skin tones. Our cosmetics lasting color effect can be used for a long time. Long-lasting color effect, soft and comfortable texture, with high-quality brush, easy to create perfect makeup. With high-quality ingredients and silky luster, they can last all day. Waterproof and sweatproof. It is fully equipped and easy to carry. Complete girl/teen makeup, perfect gift set for holiday and Christmas gift idea for teen girls, gift for mom, gift for kids, gift for females and Holiday Christmas stocking stuffers', 23, 45, 'Make Up', 'MakeupKit.jpg'),
-(28, 'Naked Wild West Eyeshadow Palette', 'Urban Decay', 'OUR MOST-WANTED NAKED - Urban Decay Naked Wild West Eyeshadow Palette features 12 desert-inspired neutrals, ranging from pale peach, warm bronze, and metallic silver to deep copper, blue-green matte, and soft turquoise shimmer.\r\nVEGAN HIGH-PIGMENT SHADES - This super-pigmented palette was inspired by California deserts, Joshua trees & endless skies. Shades include vegan Pony Up, Tex, Whiskey, Ghost Town, Rustler, Bud, Laredo, Cowboy Rick, Hold ’Em, Nudie, Spur & Standoff.\r\nBLAZE YOUR OWN TRAIL - Use the first six shades (from left to right) as allover base colors & transition shades. The six darker shades on the right are ideal for creating depth & dimension. Highlight the eye with the metallic & shimmer shades.\r\nPIGMENT INFUSION SYSTEM - Every shade in our paraben-free, sulfate-free, and phthalate-free eye shadow palettes features our proprietary ingredient blend that supplies velvety texture, rich color, and extreme blendability.\r\nPARTNERS IN CRIME - Try pairing your Naked Wild West Palette with these other Urban Decay products: Original Eyeshadow Primer Potion, Perversion Mascara, 24/7 Glide-On Eye Pencil, and All Nighter Makeup Setting Spray.', 12, 37.5, 'Make Up', 'Palette.jpg');
+(16, 'Perfect Canvas Airpod Foundation', 'Temptu', 'Introducing a next-generation Perfect Canvas Foundation. Now with skin-nourishing natural ingredients, improved sprayability, advanced color payoff, and 24 shades for light-as-air, natural-looking coverage that lasts all day.', 4, 65, 'Make Up', 'Airbrush.jpg'),
+(17, 'Mineral Multi-Master Bronzing Powder', 'MommyMakeUp', 'This Mineral Based PRESSED bronzer can be used on your face, eyes, and body!\r\nNo loose powder mess! Formulated without talc, gluten, phthalates, fragrance, GMO, parabens, or corn. It’s easy to blend formula allows you to start with a subtle golden glow, and build the color to a deeper, yet natural looking, tan, Talc-free, paraben-free, fragrance-free, noncomodegenic, cruelty-free, allergy tested. Made in USA.', 12, 32, 'Make Up', 'MommyMakeup.jpg'),
+(18, 'All in one Make Up Kit ', 'Moobirlet', 'Contains multi-color matt eye shadow and glitter eye shadow, lip gloss, eyebrow cream, makeup pen, concealer, eye cream, etc., to meet your daily makeup needs. High quality ingredients with silky shine color, easy to blend and apply, creating clear and brilliant three-dimensional face makeup finish. Suitable for a variety of skin tones. Our cosmetics lasting color effect can be used for a long time. Long-lasting color effect, soft and comfortable texture, with high-quality brush, easy to create perfect makeup. With high-quality ingredients and silky luster, they can last all day. Waterproof and sweatproof. It is fully equipped and easy to carry. Complete girl/teen makeup, perfect gift set for holiday and Christmas gift idea for teen girls, gift for mom, gift for kids, gift for females and Holiday Christmas stocking stuffers', 23, 45, 'Make Up', 'MakeupKit.jpg'),
+(19, 'Naked Wild West Eyeshadow Palette', 'Urban Decay', 'OUR MOST-WANTED NAKED - Urban Decay Naked Wild West Eyeshadow Palette features 12 desert-inspired neutrals, ranging from pale peach, warm bronze, and metallic silver to deep copper, blue-green matte, and soft turquoise shimmer.\r\nVEGAN HIGH-PIGMENT SHADES - This super-pigmented palette was inspired by California deserts, Joshua trees & endless skies. Shades include vegan Pony Up, Tex, Whiskey, Ghost Town, Rustler, Bud, Laredo, Cowboy Rick, Hold ’Em, Nudie, Spur & Standoff.\r\nBLAZE YOUR OWN TRAIL - Use the first six shades (from left to right) as allover base colors & transition shades. The six darker shades on the right are ideal for creating depth & dimension. Highlight the eye with the metallic & shimmer shades.\r\nPIGMENT INFUSION SYSTEM - Every shade in our paraben-free, sulfate-free, and phthalate-free eye shadow palettes features our proprietary ingredient blend that supplies velvety texture, rich color, and extreme blendability.\r\nPARTNERS IN CRIME - Try pairing your Naked Wild West Palette with these other Urban Decay products: Original Eyeshadow Primer Potion, Perversion Mascara, 24/7 Glide-On Eye Pencil, and All Nighter Makeup Setting Spray.', 12, 37.5, 'Make Up', 'Palette.jpg');
 
 --
 -- Indexes for dumped tables
@@ -128,16 +112,7 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `orderitem`
   ADD PRIMARY KEY (`OrderItemId`),
-  ADD KEY `CustomerId` (`CustomerId`),
   ADD KEY `ProductId` (`ProductId`);
-
---
--- Indexes for table `orderpayment`
---
-ALTER TABLE `orderpayment`
-  ADD PRIMARY KEY (`OrderPaymentId`),
-  ADD KEY `CustomerId` (`CustomerId`),
-  ADD KEY `OrderItemId` (`OrderItemId`);
 
 --
 -- Indexes for table `product`
@@ -162,34 +137,10 @@ ALTER TABLE `orderitem`
   MODIFY `OrderItemId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `orderpayment`
---
-ALTER TABLE `orderpayment`
-  MODIFY `OrderPaymentId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `ProductId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `orderitem`
---
-ALTER TABLE `orderitem`
-  ADD CONSTRAINT `OrderItem_ibfk_1` FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`CustomerId`),
-  ADD CONSTRAINT `OrderItem_ibfk_2` FOREIGN KEY (`ProductId`) REFERENCES `product` (`ProductId`);
-
---
--- Constraints for table `orderpayment`
---
-ALTER TABLE `orderpayment`
-  ADD CONSTRAINT `OrderPayment_ibfk_1` FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`CustomerId`),
-  ADD CONSTRAINT `OrderPayment_ibfk_2` FOREIGN KEY (`OrderItemId`) REFERENCES `orderitem` (`OrderItemId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
