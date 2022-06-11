@@ -58,7 +58,7 @@
         </div>
     </div>
     </div>
-    <form id="add-to-cart" action="#" method="post">
+    <form id="add-to-cart" action="shoppingcart.php" method="post">
          <div class="add-to-cart">
                <input type="hidden" name="productId" value="<?php print $productId; ?>">
                 <input type="submit" value="Add To Cart" name="addToCartButton">
