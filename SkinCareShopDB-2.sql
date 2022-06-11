@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2022 at 04:35 PM
+-- Generation Time: Jun 11, 2022 at 04:45 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -42,6 +42,19 @@ CREATE TABLE `customer` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customerorder`
+--
+
+CREATE TABLE `customerorder` (
+  `OrderId` int(11) NOT NULL,
+  `OrderDate` date DEFAULT NULL,
+  `OrderStatus` varchar(50) DEFAULT NULL,
+  `CustomerId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orderitem`
 --
 
@@ -49,7 +62,6 @@ CREATE TABLE `orderitem` (
   `OrderItemId` int(11) NOT NULL,
   `OrderId` int(11) DEFAULT NULL,
   `ProductId` int(11) DEFAULT NULL,
-  `ShipDate` date DEFAULT NULL,
   `QuantityOrdered` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -108,6 +120,12 @@ ALTER TABLE `customer`
   ADD UNIQUE KEY `Passwrd` (`Passwrd`);
 
 --
+-- Indexes for table `customerorder`
+--
+ALTER TABLE `customerorder`
+  ADD PRIMARY KEY (`OrderId`);
+
+--
 -- Indexes for table `orderitem`
 --
 ALTER TABLE `orderitem`
@@ -129,6 +147,12 @@ ALTER TABLE `product`
 --
 ALTER TABLE `customer`
   MODIFY `CustomerId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customerorder`
+--
+ALTER TABLE `customerorder`
+  MODIFY `OrderId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orderitem`
