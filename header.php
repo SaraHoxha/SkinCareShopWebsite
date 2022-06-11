@@ -24,7 +24,7 @@ $_SESSION['logStatus'] = NOT_AUTHENTICATED;
                         <li class="zoom"><i class="fa-solid fa-cart-shopping"><button class="dropdown"> 
                             <?php if ($_SESSION['logStatus'] == SUCCESSFUL) { ?> 
                                 <div class="drop-content cart">
-                                <a href="#">Cart</a>
+                                <a href="shoppingcart.php">Cart</a>
                                 </div>
                             <?php } ?>
                     </button> </i>
