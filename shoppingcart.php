@@ -4,6 +4,32 @@ session_start();
 require_once 'databaseconfig.php';
 
 
+if (isset($_SESSION['Cart'])) {
+    $cartItems = $_SESSION['Cart'];
+
+    if (isset($_GET['remove'])) {
+        removeItem($_GET['remove']);
+    }
+}
+
+
+$productId = '';
+$productQuantity = 0;
+if (isset($_POST['productId'])) {
+    $productId = $_POST['productId'];
+    $productQuantity = $_POST['productQuantity'];
+    
+    if (!isset($cartItems[$productId])) {
+        $cartItems[$productId] = intval($productQuantity);
+    } else {
+        $cartItems[$productId] = $cartItems[$productId] + intval($productQuantity);
+    }
+    
+    
+    $_SESSION['Cart'] = $cartItems;
+}
+
+
 $currentUser = '';
 if (isset($_SESSION['UserID'])) {
     $userId = $_SESSION['UserID'];
@@ -13,12 +39,14 @@ if (isset($_SESSION['UserID'])) {
 
     if (mysqli_num_rows($result) === 1) {
         $currentUser = mysqli_fetch_array($result);
-    } else {
-        return '';
     }
 }
+else {
+    header('Location: login.php');
+}
 
-function deleteItem($productId) {
+
+function removeItem($productId) {
     unset($_SESSION['Cart'][$productId]);
 }
 
@@ -27,45 +55,8 @@ function clearCart() {
 }
 
 
-$productId = '';
-$productQuantity = 0;
-$cartItems = array();
-if (isset($_POST['productQuantity'])) {
-    $productId = $_POST['productId'];
-    $productQuantity = $_POST['productQuantity'];
-    
-    if (!isset($cartItems[$productId])) {
-        $cartItems[$productId] = intval($productQuantity);
-    } else {
-        $cartItems[$productId] += intval($productQuantity);
-    }
-    
-    
-    $_SESSION['Cart'] = $cartProducts;
-}
 
-if (isset($_SESSION['Cart'])) {
-    $cartItems = $_SESSION['Cart'];
-
-    if (isset($_GET['remove'])) {
-        deleteItem($_GET['remove']);
-    }
-}
-
-
-$subtotal = 0.00;
-if (isset($_SESSION['Cart'])) {
-        $cartItems = $_SESSION['Cart'];
-        foreach ($cartItems as $itemId => $itemQuantity) {
-         $query = "SELECT * FROM `orderitem` WHERE Id = '$itemId'";
-         $result = mysqli_query($connection, $query);
-
-         if (mysqli_num_rows($result) === 1) {
-             $orderItem = mysqli_fetch_array($result);
-             $subtotal += floatval($orderItem['Price']) * floatval($itemQuantity);
-          }
-            } 
-}
+$total = 0.00;
 
 
 define('NOT_DONE', 0);
@@ -76,16 +67,23 @@ define('EMPTY', 3);
 $orderResult = NOT_DONE;
 
 
-if (isset($_POST['addToCartButton'])) {
-    if (count($_SESSION['GuestCarts']) > 0) 
+if (isset($_POST['OrderButton'])) {
+    
+    if (count($_SESSION['Cart']) > 0) 
     {
         if (isset($_SESSION['UserID'])) 
         {
-            $userId = $currentUser['CustomerId'];
+        
+          $userId = $_SESSION['UserID'];
 
-            $query =  "INSERT INTO `customerorder` (`OrderDate`, `OrderStatus`, `CustomerId`) VALUES (CURRENT_TIME(), 'Processing', '$userId')";
+           // $currentDate = date("Y-m-d");
+           
+          $query =  "INSERT INTO `customerorder` (`CustomerId`) VALUES ($userId)";
+         
+          $queryResult = mysqli_query($connection, $query);
+                  /*
 
-            if (mysqli_query($connection, $query)) {
+           if ($queryResult) {
 
                 $query = "SELECT Id FROM `customerorder` WHERE CustomerId='$userId' AND OrderStatus = 'Processing' LIMIT 1";
                 $result = mysqli_fetch_array(mysqli_query($connection, $query));
@@ -93,17 +91,22 @@ if (isset($_POST['addToCartButton'])) {
                 $orderId = $result['OrderId'];
 
                 foreach ($cartItems as $itemId => $itemQuantity) {
-                    $sql = "SELECT * FROM `orderitem` WHERE Id = '$itemId'";
+                    $sql = "SELECT * FROM `product` WHERE ProductId = '$itemId'";
                     $result = mysqli_query($connection, $sql);
 
                     if (mysqli_num_rows($result) === 1) {
-                        $orderItem = mysqli_fetch_array($result);
+                        $product = mysqli_fetch_array($result);
                       }
 
-                    $itemId = intval($orderItem['Id']);
+                    $itemId = intval($product['Id']);
                     $itemQuantity = intval($itemQuantity);
 
-                    $sql = "INSERT INTO `orderitem` (`OrderId`, `ProductId`, `QuantityOrdered`) VALUES ($orderId, $itemId, $itemQuantity)";
+                    $query = "INSERT INTO `orderitem` (`OrderId`, `ProductId`, `QuantityOrdered`) VALUES ('$orderId', '$itemId', '$itemQuantity')";
+                    mysqli_query($connection, $query);
+
+                    $newQuantity = $product['QuantityAvailable'] - $itemQuantity;
+
+                    $sql = "UPDATE 'product SET 'QuantityAvailable' = '$newQuantity' WHERE 'ProductId' = '$itemId'";
                     mysqli_query($connection, $sql);
                 }
 
@@ -114,13 +117,12 @@ if (isset($_POST['addToCartButton'])) {
 
             else { 
                 $orderResult = UNSUCCESSFUL;
-            }
-
+            }      
+*/
+        
         }
     }
-
-
-}
+    }
 
 ?>
 
@@ -128,62 +130,74 @@ if (isset($_POST['addToCartButton'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/cartstyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Shopping Cart</title>
 </head>
 <body>
-
+        <?php include "header.php"; ?>
         <div class="container">
-            <?php include "header.php"; ?>
-                <form action="" method="post">
+           
+        <?php if (count($_SESSION['Cart']) == 0) {?>
+                <div class="empty-cart">
+                    Your cart is empty. <a href="products.php"> Shop now </a>
+                </div> 
+                <?php } else { ?>
                 <table>
                 <thead>
                 <tr>
                     <td colspan="2">Product</td>
-                    <td>Price of Item</td>
-                    <td>Quantity Available</td>
-                    <td>Total to pay</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>       
                 </tr>
             </thead>
             <tbody>
-            <?php if (count($cartItems) == 0): ?>
-                <tr>
-                    <td colspan="4" style="text-align:center;">No products added in your Shopping Cart found</td>
-                </tr>
-                <?php else: ?>
-                <?php foreach ($cartItems as $product): ?>
+            <?php
+                    $products = $_SESSION['Cart'];
+                foreach ($products as $itemId => $itemQuantity) {
+                        
+                        $query = "SELECT * FROM `product` WHERE  ProductId = '$itemId'";
+                        $result = mysqli_query($connection, $query);
+               
+                        if (mysqli_num_rows($result) === 1) {
+                            $product = mysqli_fetch_array($result); }
+
+                            $total += $product['Price'] * $itemQuantity;
+                    ?>
                     <tr>
-                    <td class="images">
-                        <a href="productdetail.php?Id=<?=$product['ProductId']?>">
-                            <img src="images/<?=$product['ProductImage']?>" width="50" height="50" alt="<?=$product['ProductName']?>">
+                    <td class="image">
+                        <a href="productdetail.php?Id=<?php print $product['ProductId']?>">
+                            <img src="images/<?php print $product['ProductImage']?>" width="100" height="100">
                         </a>
                     </td>
                     <td>
-                        <a href="productdetail.php?Id=<?=$product['ProductId']?>"><?=$product['ProductName']?></a>
-                        <br>
-                        <a href="shoppingcart.php?remove=<?=$product['ProductId']?>" class="remove">Remove</a>
+                        <a href="productdetail.php?Id=<?php print $product['ProductId']?>"><?=$product['ProductName']?></a>
                     </td>
-                    <td class="Price">&dollar;<?=$product['Price']?></td>
+                    <td class="Price">&dollar;<?php print $product['Price']?></td>
                     <td class="quantity">
-                        <input type="number" name="Quantity-<?=$product['ProductId']?>" value="<?=$cartItems[$product['ProductId']]?>" min="1" max="<?=$product['QuantityAvailable']?>" placeholder="Quantity" disabled>
+                        <?php print $itemQuantity ?>
                     </td>
-                    <td class="Price">&dollar;<?=$product['Price'] * $cartItems[$product['ProductId']]?></td>
+                    <td class="Price">&dollar;<?php print $product['Price'] * $itemQuantity?></td>
+                    <td>
+                        <a href="shoppingcart.php?remove=<?php print $product['ProductId']?>" class="remove">Remove</a>
+                    </td>
                 </tr>
-                <?php endforeach; ?>
-                <?php endif; ?>
+                <?php  } ?>
             </tbody>
         </table>
-        <div class="subtotal">
-            <span class="Text">Subtotal</span>
-            <span class="Price">&dollar;<?=$subtotal?></span>
+        <div class="Total">
+            <span class="Text">Total</span>
+            <span class="Price">&dollar;<?php print $total ?></span>
         </div>
-        <div class="buttons">
-            <input type="submit" value="Update" name="addToCartButton">
-            <input type="submit" value="Place Order" name="orderdone">
+        <form action="orderdone.php" method="post" id="submit-order-form">
+        <div class="button">
+            <input type="submit" value="Place Order" name="OrderButton">
+            </div>
+        </form>
+<?php } ?>
 </div>
-</form>
 </div>
-</div>
+<?php include "footer.html"; ?>
 </body>
 </html>
-<?php include "footer.html"; ?>

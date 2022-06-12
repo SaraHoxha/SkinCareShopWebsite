@@ -2,15 +2,6 @@
     session_start();
     require_once 'databaseconfig.php';
     
-/*function getCountProducts() {
-    if (isset($_SESSION['GuestCarts'])) {
-        return count($_SESSION['GuestCarts']);
-    }
-    else {
-        return 0;
-    } 
-} */
-    
     $productId = '';
     if (isset($_GET['Id'])) {
         $productId = $_GET['Id'];
@@ -60,9 +51,9 @@
     </div>
     <form id="add-to-cart" action="shoppingcart.php" method="post">
          <div class="add-to-cart">
-               <input type="hidden" name="productId" value="<?php print $productId; ?>">
-                <input type="submit" value="Add To Cart" name="addToCartButton">
-                <input type="number" value="1" min="1" name="productQuantity"> 
+               <input type="hidden" name="productId" value="<?php echo $productId; ?>">
+               <input type="number" value="1" min="1" name="productQuantity">  
+               <input type="submit" value="Add To Cart" name="addToCartButton"> 
                </div>
      </form>
   </div>   

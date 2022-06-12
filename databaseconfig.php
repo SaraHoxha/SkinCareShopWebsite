@@ -2,7 +2,7 @@
 	$host = "localhost";
 	$username = "root";
 	$password = "";
-	$database = "SkinCareShopDB";
+	$database = "SkinCareShop";
 	
 	$connection = mysqli_connect($host, $username, $password, $database);
 
