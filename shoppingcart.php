@@ -3,6 +3,11 @@
 session_start();
 require_once 'databaseconfig.php';
 
+define('NOT_DONE', 0);
+define('SUCCESSFUL_ORDER', 1);
+define('UNSUCESSFUL_ORDER', 2);
+define('EMPTY', 3);
+$orderResult = NOT_DONE;
 
 if (isset($_SESSION['Cart'])) {
     $cartItems = $_SESSION['Cart'];
@@ -15,189 +20,180 @@ if (isset($_SESSION['Cart'])) {
 
 $productId = '';
 $productQuantity = 0;
+//add items to cart
 if (isset($_POST['productId'])) {
     $productId = $_POST['productId'];
     $productQuantity = $_POST['productQuantity'];
-    
+
     if (!isset($cartItems[$productId])) {
-        $cartItems[$productId] = intval($productQuantity);
+        $cartItems[$productId] = $productQuantity;
     } else {
-        $cartItems[$productId] = $cartItems[$productId] + intval($productQuantity);
+        $cartItems[$productId] = $cartItems[$productId] + $productQuantity;
     }
-    
-    
+
+
     $_SESSION['Cart'] = $cartItems;
 }
 
 
+// get current user who's ordering
 $currentUser = '';
 if (isset($_SESSION['UserID'])) {
     $userId = $_SESSION['UserID'];
     $query = "SELECT * FROM `customer` WHERE CustomerId = '$userId'";
-    
+
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) === 1) {
         $currentUser = mysqli_fetch_array($result);
     }
-}
-else {
+} else {
     header('Location: login.php');
 }
 
 
-function removeItem($productId) {
+//remove item
+function removeItem($productId)
+{
     unset($_SESSION['Cart'][$productId]);
 }
 
-function clearCart() {
+//clear cart
+function clearCart()
+{
     unset($_SESSION['Cart']);
 }
 
-
-
+//initialize total to 0.00
 $total = 0.00;
 
-
-define('NOT_DONE', 0);
-define('SUCCESSFUL', 1);
-define('UNSUCESSFUL', 2);
-define('EMPTY', 3);
-
-$orderResult = NOT_DONE;
-
-
+//process order when user submits form
 if (isset($_POST['OrderButton'])) {
-    
-    if (count($_SESSION['Cart']) > 0) 
-    {
-        if (isset($_SESSION['UserID'])) 
-        {
-        
-          $userId = $_SESSION['UserID'];
 
-           // $currentDate = date("Y-m-d");
-           
-          $query =  "INSERT INTO `customerorder` (`CustomerId`) VALUES ($userId)";
-         
-          $queryResult = mysqli_query($connection, $query);
-                  /*
+    if (count($_SESSION['Cart']) > 0) {
+        if (isset($_SESSION['UserID']) &&  $_SESSION['UserID'] !== '') {
 
-           if ($queryResult) {
+            $userId = $_SESSION['UserID'];
 
-                $query = "SELECT Id FROM `customerorder` WHERE CustomerId='$userId' AND OrderStatus = 'Processing' LIMIT 1";
-                $result = mysqli_fetch_array(mysqli_query($connection, $query));
+            $currentDate = date("Y-m-d");
 
-                $orderId = $result['OrderId'];
+            //insert order into db
+            $query =  "INSERT INTO `customerorder` (`OrderDate`, `OrderStatus`, `CustomerId`) VALUES ('$currentDate', 'Processing', $userId)";
 
+            $queryResult = mysqli_query($connection, $query);
+
+            if ($queryResult) {
+
+                $query = "SELECT * FROM `customerorder` WHERE CustomerId = '$userId' AND OrderStatus = 'Processing' LIMIT 1";
+                $costumerorder = mysqli_fetch_array(mysqli_query($connection, $query));
+
+                $orderId = $costumerorder['OrderId'];
+
+                //for each product in order, create an orderitem row in db
                 foreach ($cartItems as $itemId => $itemQuantity) {
-                    $sql = "SELECT * FROM `product` WHERE ProductId = '$itemId'";
+                    $sql = "SELECT * FROM `product` WHERE ProductId = '$itemId' LIMIT 1";
                     $result = mysqli_query($connection, $sql);
-
-                    if (mysqli_num_rows($result) === 1) {
-                        $product = mysqli_fetch_array($result);
-                      }
-
-                    $itemId = intval($product['Id']);
-                    $itemQuantity = intval($itemQuantity);
+                    $product = mysqli_fetch_array($result);
 
                     $query = "INSERT INTO `orderitem` (`OrderId`, `ProductId`, `QuantityOrdered`) VALUES ('$orderId', '$itemId', '$itemQuantity')";
                     mysqli_query($connection, $query);
 
+                    //update quantity of product after order has been done
                     $newQuantity = $product['QuantityAvailable'] - $itemQuantity;
 
-                    $sql = "UPDATE 'product SET 'QuantityAvailable' = '$newQuantity' WHERE 'ProductId' = '$itemId'";
+                    $sql = "UPDATE `product` SET QuantityAvailable = $newQuantity WHERE ProductId = '$itemId'";
                     mysqli_query($connection, $sql);
                 }
 
                 clearCart();
-                $orderResult = SUCCESSFUL;
+                $orderResult = SUCCESSFUL_ORDER;
                 header("Location: orderdone.php");
+            } else {
+                $orderResult = UNSUCESSFUL_ORDER;
             }
-
-            else { 
-                $orderResult = UNSUCCESSFUL;
-            }      
-*/
-        
         }
     }
-    }
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles/cartstyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
 </head>
+
 <body>
-        <?php include "header.php"; ?>
-        <div class="container">
-           
-        <?php if (count($_SESSION['Cart']) == 0) {?>
-                <div class="empty-cart">
-                    Your cart is empty. <a href="products.php"> Shop now </a>
-                </div> 
-                <?php } else { ?>
-                <table>
+    <?php include "header.php"; ?>
+    
+    <div class="container">
+    <h5>Shopping Cart</h5>
+        <?php if (!isset($_SESSION['Cart']) || count($_SESSION['Cart']) == 0 ) { ?>
+            <div class="empty-cart">
+                Your cart is empty. 
+                <p><a class="shop"href="products.php"> Shop now</a><p>
+            </div>
+        <?php } else { ?>
+            <table>
                 <thead>
-                <tr>
-                    <td colspan="2">Product</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td>Subtotal</td>       
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-                    $products = $_SESSION['Cart'];
-                foreach ($products as $itemId => $itemQuantity) {
-                        
+                    <tr class="header-row">
+                        <td colspan="2">Product</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Subtotal</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $items = $_SESSION['Cart'];
+                    foreach ($items as $itemId => $itemQuantity) {
+
                         $query = "SELECT * FROM `product` WHERE  ProductId = '$itemId'";
                         $result = mysqli_query($connection, $query);
-               
-                        if (mysqli_num_rows($result) === 1) {
-                            $product = mysqli_fetch_array($result); }
 
-                            $total += $product['Price'] * $itemQuantity;
+                        if (mysqli_num_rows($result) === 1) {
+                            $product = mysqli_fetch_array($result);
+                        }
+
+                        $total += $product['Price'] * $itemQuantity;
                     ?>
-                    <tr>
-                    <td class="image">
-                        <a href="productdetail.php?Id=<?php print $product['ProductId']?>">
-                            <img src="images/<?php print $product['ProductImage']?>" width="100" height="100">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="productdetail.php?Id=<?php print $product['ProductId']?>"><?=$product['ProductName']?></a>
-                    </td>
-                    <td class="Price">&dollar;<?php print $product['Price']?></td>
-                    <td class="quantity">
-                        <?php print $itemQuantity ?>
-                    </td>
-                    <td class="Price">&dollar;<?php print $product['Price'] * $itemQuantity?></td>
-                    <td>
-                        <a href="shoppingcart.php?remove=<?php print $product['ProductId']?>" class="remove">Remove</a>
-                    </td>
-                </tr>
-                <?php  } ?>
-            </tbody>
-        </table>
-        <div class="Total">
-            <span class="Text">Total</span>
-            <span class="Price">&dollar;<?php print $total ?></span>
-        </div>
-        <form action="orderdone.php" method="post" id="submit-order-form">
-        <div class="button">
-            <input type="submit" value="Place Order" name="OrderButton">
+                        <tr>
+                            <td class="image">
+                                <a href="productdetail.php?Id=<?php print $product['ProductId'] ?>">
+                                    <img src="images/<?php print $product['ProductImage'] ?>" width="150" height="150">
+                                </a>
+                            </td>
+                            <td>
+                                <a class="product-link" href="productdetail.php?Id=<?php print $product['ProductId'] ?>"><?php print $product['ProductName'] ?></a>
+                            </td>
+                            <td class="Price">&euro;<?php print $product['Price'] ?></td>
+                            <td class="quantity">
+                                <?php print $itemQuantity ?>
+                            </td>
+                            <td class="Subtotal">&euro;<?php print $product['Price'] * $itemQuantity ?></td>
+                            <td>
+                                <a href="shoppingcart.php?remove=<?php print $product['ProductId'] ?>" class="remove-link">Remove</a>
+                            </td>
+                        </tr>
+                    <?php  } ?>
+                </tbody>
+            </table>
+            <div class="Total">
+                <span class="Text">Total</span>
+                <span class="Price">&euro;<?php print $total ?></span>
             </div>
-        </form>
-<?php } ?>
-</div>
-</div>
-<?php include "footer.html"; ?>
+            <form action="" method="post" id="submit-order-form">
+                <div class="button">
+                    <input type="submit" value="Place Order" name="OrderButton" >
+                </div>
+            </form>
+            <?php } ?>
+    </div>
+    <?php include "footer.html"; ?>
 </body>
 </html>

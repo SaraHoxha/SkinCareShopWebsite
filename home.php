@@ -9,54 +9,60 @@ $result = mysqli_query($connection, $query);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radiant Skin Homepage</title>
-    <link rel="stylesheet" href="styles/mainstyle.css">
-    <link rel="stylesheet" href="styles/productstyle.css">
-    <script src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radiant Skin Homepage</title>
+  <link rel="stylesheet" href="styles/mainstyle.css">
+  <link rel="stylesheet" href="styles/productstyle.css">
+  <script src="script.js"></script>
 </head>
+
 <body>
-    <div class="page-container">
-    <?php include "header.php" ;?>
-<div class="slideshow-container">
-    <div class="banner">
-      <img src="images/banner1.jpeg" style="width:100%">
+  <div class="page-container">
+    <?php include "header.php"; ?>
+    <div class="slideshow-container">
+      <div class="banner">
+        <img src="images/banner1.jpeg" style="width:100%">
+      </div>
+      <a class="prev" onclick="nextSlide(1)">&#10094;</a>
+      <a class="next" onclick="prevSlide(1)">&#10095;</a>
     </div>
-    <a class="prev" onclick="nextSlide(1)">&#10094;</a>
-    <a class="next" onclick="prevSlide(1)">&#10095;</a>
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
     </div>
-  <div style="text-align:center">
-    <span class="dot" onclick="currentSlide(1)"></span> 
-    <span class="dot" onclick="currentSlide(2)"></span> 
-    <span class="dot" onclick="currentSlide(3)"></span> 
-  </div>
-<div class="products-container">
-  <br>
-    <div class="title"> Some of our products</div>
-    <div class="products">    
+    <div class="products-container">
+      <br>
+      <!-- display some of the products -->
+      <div class="title"> Some of our products</div>
+      <div class="products">
         <?php
-               while ($product = mysqli_fetch_array($result)) {
-         ?>
-            <div class="product">
+        while ($product = mysqli_fetch_array($result)) {
+        ?>
+          <div class="product">
             <a href="productdetail.php?Id=<?php print $product['ProductId']; ?>">
-            <div class="photo">
-            <img src="images/<?php print $product['ProductImage']; ?>"> </div> </a>
+              <div class="photo">
+                <img src="images/<?php print $product['ProductImage']; ?>">
+              </div>
+            </a>
             <h4 class="product-name"><?php print $product['ProductName']; ?></h4>
-            <h3 class="product-price">Price: <?php print $product['Price'] ?> € </h3> 
+            <h3 class="product-price">Price: <?php print $product['Price'] ?> &euro; </h3>
           </div>
         <?php
-              }
+        }
         ?>
+      </div>
+      <!-- redirect to all products page -->
+      <div class="products-button">
+        <button onclick="location.href='products.php'" type="button" class="button button5">SEE ALL</button>
+      </div>
+      <br>
+      <?php include "footer.html"; ?>
     </div>
-    <div class="products-button">
-        <button  onclick="location.href='products.php'" type="button" class="button button5" >SEE ALL</button>
-    </div>
-    <br>
-    <?php include "footer.html"; ?>
-    <?php include "card.php"; ?>
-</div>
-</div>
+  </div>
 </body>
+
 </html>

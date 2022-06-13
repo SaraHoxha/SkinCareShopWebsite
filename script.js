@@ -1,3 +1,5 @@
+// Script to have sliding banner on home.php
+
 let slideNum = 1;
 showSlides(slideNum);
 
@@ -5,7 +7,7 @@ function nextSlide(n) {
   showSlides(slideNum += n);
 }
 
-function  prevSlide(n) {
+function prevSlide(n) {
     showSlides(slideNum -= n);
   }
 

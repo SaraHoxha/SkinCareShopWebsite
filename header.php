@@ -1,14 +1,15 @@
-<?php 
-define('NOT_AUTHENTICATED', 0);
+<?php
+define('NOT_LOGGED', 0);
 define('SUCCESSFUL', 1);
 define('UNSUCCESSFUL', 2);
 
-if(!isset($_SESSION['logStatus'])) {
-$_SESSION['logStatus'] = NOT_AUTHENTICATED;
+if (!isset($_SESSION['logStatus'])) {
+    $_SESSION['logStatus'] = NOT_LOGGED;
 }
 
 ?>
 <html>
+
 <head>
     <link href="styles/mainstyle.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3f0bf72528.js" crossorigin="anonymous"></script>
@@ -21,22 +22,22 @@ $_SESSION['logStatus'] = NOT_AUTHENTICATED;
                 <div class="top-bar">
                     <div class="logo-container"> <img class="logo" src="images/logo.png"></div>
                     <ul class="customer-actions-list">
-                        <li class="zoom"><i class="fa-solid fa-cart-shopping"><button class="dropdown"> 
-                            <?php if ($_SESSION['logStatus'] == SUCCESSFUL) { ?> 
-                                <div class="drop-content cart">
-                                <a href="shoppingcart.php">Cart</a>
-                                </div>
-                            <?php } ?>
-                    </button> </i>
-                </li>
+                        <li class="zoom"><i class="fa-solid fa-cart-shopping"><button class="dropdown">
+                                    <?php if ($_SESSION['logStatus'] == SUCCESSFUL) { ?>
+                                        <div class="drop-content cart">
+                                            <a href="shoppingcart.php">Cart</a>
+                                        </div>
+                                    <?php } ?>
+                                </button> </i>
+                        </li>
                         <li class="zoom"><i class="fa-solid fa-user"><button class="dropdown">
-                        <div class="drop-content">
-                            <?php if ($_SESSION['logStatus'] == NOT_AUTHENTICATED || $_SESSION['logStatus'] == UNSUCCESSFUL ) { ?> <a href="login.php">Log In</a>
-                            <?php } else if ($_SESSION['logStatus'] == SUCCESSFUL) { ?>
-                            <a href="logout.php">Log Out</a>
-                            <?php } ?>
-                        </div>
-                    </button></i>
+                                    <div class="drop-content">
+                                        <?php if ($_SESSION['logStatus'] == SUCCESSFUL) { ?> <a href="logout.php">Log Out</a>
+                                        <?php } else  { ?>
+                                            <a href="login.php">Log In</a>
+                                        <?php } ?>
+                                    </div>
+                                </button></i>
                         </li>
                     </ul>
                 </div>
@@ -49,4 +50,5 @@ $_SESSION['logStatus'] = NOT_AUTHENTICATED;
                 </ul>
             </nav>
         </header>
-    </html>
+
+</html>

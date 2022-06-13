@@ -1,116 +1,119 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@300&display=swap');
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    list-style: none;   
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  list-style: none;
 }
-  
-  .login-form, .register-form {
-    padding:100px;
-    margin:40px;
-    margin-left: -8px;
-    width: 100%;
-    background: #FFFFFF;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex: 1 1 100%;
-    align-items: stretch;
-    justify-content: space-between;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
-  }
 
-  .login-form div, .register-form div {
-    height: auto;
-  }
+.login-form,
+.register-form {
+  padding: 100px;
+  margin: 40px;
+  margin-left: -8px;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex: 1 1 100%;
+  align-items: stretch;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
-  .left-column {
-    color: #FFFFFF;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url("https://cdn.shopify.com/s/files/1/0070/7032/files/start-a-skincare-line-11.jpg?v=1631707756");
-    overflow: hidden;
-    width:30%;
-  }
-  
-  .overlay {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    opacity: 0.5;
-  }
+.login-form div,
+.register-form div {
+  height: auto;
+}
 
-   .overlay h1 {
-    font-size: 30px;
-    line-height: 3;
-    font-weight: 900;
-    margin-top: 40%;
-    text-align: center;
-    margin-bottom: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: 'Cinzel', serif;
-  }
+.left-column {
+  color: #FFFFFF;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://cdn.shopify.com/s/files/1/0070/7032/files/start-a-skincare-line-11.jpg?v=1631707756");
+  overflow: hidden;
+  width: 30%;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  opacity: 0.5;
+}
+
+.overlay h1 {
+  font-size: 30px;
+  line-height: 3;
+  font-weight: 900;
+  margin-top: 40%;
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+}
 
 
- .right-column {
-    width:70%;
-    padding: 40px;
-    overflow: hidden;
-  }
- 
-   .right-column  a {
-    margin-top:40px;
-   color: #49c628a6;
-   font-weight:bold;
-  }
+.right-column {
+  width: 70%;
+  padding: 40px;
+  overflow: hidden;
+}
 
-    h5 {
-    font-size: 5vmax;
-    line-height: 0;
-    font-family: 'Cinzel', serif;
-    color: rgb(31, 28, 28)
-  }
+.right-column a {
+  margin-top: 40px;
+  color: #49c628a6;
+  font-weight: bold;
+}
 
-   .right-column p {
-    font-size: 14px;
-    color: #B0B3B9;
-   float:right;
-  }
+h5 {
+  font-size: 5vmax;
+  line-height: 0;
+  font-family: 'Cinzel', serif;
+  color: rgb(31, 28, 28)
+}
 
-   .inputs {
-    overflow: hidden;
-  }
+.right-column p {
+  font-size: 14px;
+  color: #B0B3B9;
+  float: right;
+}
 
-   input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 35px;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    border-bottom: 2px solid #B0B3B9;
-  }
+.inputs {
+  overflow: hidden;
+}
 
-  button.login-button, button.register-button {
-    float: left;
-    color: #FFFFFF;
-    font-size: 16px;
-    padding: 12px 35px;
-    border-radius: 50px;
-    display: inline-block;
-    border: 0;
-    outline: 0;
-    box-shadow: 0px 4px 20px 0px #49c628a6;
-    background-image: linear-gradient(135deg, #70F570 10%, #49C628 100%);
-  }
-  
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 35px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #B0B3B9;
+}
 
-  span.error {
-    color: #ff0000;
-    text-decoration: underline;
-  }
+button.login-button,
+button.register-button {
+  float: left;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 12px 35px;
+  border-radius: 50px;
+  display: inline-block;
+  border: 0;
+  outline: 0;
+  box-shadow: 0px 4px 20px 0px #49c628a6;
+  background-image: linear-gradient(135deg, #70F570 10%, #49C628 100%);
+}
+
+
+span.error {
+  color: #ff0000;
+  text-decoration: underline;
+}
