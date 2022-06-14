@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 13, 2022 at 08:55 PM
+-- Generation Time: Jun 14, 2022 at 04:18 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -44,7 +44,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`CustomerId`, `Username`, `CardNumber`, `Email`, `Passwrd`, `FirstName`, `LastName`, `Address`, `PostalCode`) VALUES
-(1, 'sarah', 1348923, 'sarahoxha99@gmail.com', '1108', 'Sara', 'Hoxha', 'Sara', 1833);
+(1, 'sarah', 1348923, 'sarahoxha99@gmail.com', '1108', 'Sara', 'Hoxha', 'Sara', 1833),
+(5, 'xhesi', 123784, 'xhesihoxha@yahoo.com', '110820', 'Xhesi', 'Hoxha', 'Jordan Misja', 1067);
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,8 @@ INSERT INTO `customerorder` (`OrderId`, `OrderDate`, `OrderStatus`, `CustomerId`
 (16, '2022-06-13', 'Processing', 1),
 (17, '2022-06-13', 'Processing', 1),
 (18, '2022-06-13', 'Processing', 1),
-(19, '2022-06-13', 'Processing', 1);
+(19, '2022-06-13', 'Processing', 1),
+(20, '2022-06-14', 'Processing', 5);
 
 -- --------------------------------------------------------
 
@@ -99,7 +101,8 @@ INSERT INTO `orderitem` (`OrderItemId`, `OrderId`, `ProductId`, `QuantityOrdered
 (22, 13, 2, 1),
 (23, 13, 6, 1),
 (24, 13, 6, 1),
-(25, 13, 9, 1);
+(25, 13, 9, 1),
+(26, 20, 14, 2);
 
 -- --------------------------------------------------------
 
@@ -136,7 +139,7 @@ INSERT INTO `product` (`ProductId`, `ProductName`, `ProductBrand`, `ProductDescr
 (11, 'Cicapair Re-Cover', 'Dr. Jart++', 'mineral solution and panthenol strengthen natural skin force. Strawberry leaf extracts alleviate skin irritation and protect the skin from external harmful stimuli and environment. Formulated WITHOUT Parabens, Sulfates, Phthalates. Green-to-Beige color change texture represents healthy skin by covering the skin turned red due to stress. Formulated WITHOUT Parabens, Sulfates, Phthalates', 2, 45, 'Body', 'FaceCream.jpeg'),
 (12, 'PERFECT COVER BB CREAM ', 'MISSHA M', 'FLAWLESS COVERAGE: Smoothly conceals imperfections, balances skin tone, and visibly smooths complexion for a youthfully perfected look. DEWY AND MOISTURIZING: Keeps your skin hydrated and soft with powerful ceramides, hyaluronic acid, and Gatuline RC. NATURALLY CONDITIONING: Infused with nourishing botanical essences, emollient plant oils, and nutrient rich marine extracts to replenish the look and feel of skin. GATULINE RC, HYALURONIC ACID, CERAMID: Help infuse moisture for firmer looking skin with reduction in appearance of fine lines & wrinkles. ROSEMARY AND CHAMOMILE EXTRACTS: Fragrant herbal botanical that help the complexion appear calm and balanced', 10, 58, 'Makeup', 'CoverageCream.jpeg'),
 (13, 'Be Beautiful Luminous CC', 'THANK YOU FARMER', 'Give your skin a luminous glow with this SPF 30-fortified CC cream that corrects skin tone, making it look more even, lustrous and flawless while protecting it from skin darkening and aging.', 5, 34, 'Skincare', 'CorrectionCream.jpeg'),
-(14, 'Clearing BB Cream', 'Purito', 'Healthy-Looking GlowFlawless CoverageEO & Fragrance FreeThis BB cream provides a natural and radiant finish, and strengthens the skin barrier. It gently absorbs into the skin and has a long-lasting formula. This product does not contain artificial fragrances, essential oils, and harmful ingredients, which can cause irritation, making it great for people with all skin types including sensitive skin.', 5, 120, 'Skincare', 'ClearingBBCream.jpeg'),
+(14, 'Clearing BB Cream', 'Purito', 'Healthy-Looking GlowFlawless CoverageEO & Fragrance FreeThis BB cream provides a natural and radiant finish, and strengthens the skin barrier. It gently absorbs into the skin and has a long-lasting formula. This product does not contain artificial fragrances, essential oils, and harmful ingredients, which can cause irritation, making it great for people with all skin types including sensitive skin.', 3, 120, 'Skincare', 'ClearingBBCream.jpeg'),
 (15, 'Glow Tension SPF50+ PA+++', 'MISSHA', 'MISSHA Glow Tension SPF50+ PA+++ is available in 6 shades that create naturally plump, dewy skin. A tri-functional product: Anti-wrinkle + Whitening + UV Blocking. With Glow Moistension Complex that infused with amino acid, five kinds of hyaluronic acid, and collagen to prepare your skin for makeup. Perfect coverage provided by Micro Cover Poweder for flawless finish. Powerful adherence and consistency by Light-Fit Formula. How to use: Apply proper amount on a puff and pat lightly on the face.', 21, 22, 'Skincare', 'Foundation.jpeg'),
 (16, 'Perfect Canvas Airpod Foundation', 'Temptu', 'Introducing a next-generation Perfect Canvas Foundation. Now with skin-nourishing natural ingredients, improved sprayability, advanced color payoff, and 24 shades for light-as-air, natural-looking coverage that lasts all day.', 4, 65, 'Makeup', 'Airbrush.jpg'),
 (17, 'Mineral Multi-Master Bronzing Powder', 'MommyMakeUp', 'This Mineral Based PRESSED bronzer can be used on your face, eyes, and body!\r\nNo loose powder mess! Formulated without talc, gluten, phthalates, fragrance, GMO, parabens, or corn. It’s easy to blend formula allows you to start with a subtle golden glow, and build the color to a deeper, yet natural looking, tan, Talc-free, paraben-free, fragrance-free, noncomodegenic, cruelty-free, allergy tested. Made in USA.', 11, 32, 'Makeup', 'MommyMakeup.jpg'),
@@ -152,8 +155,7 @@ INSERT INTO `product` (`ProductId`, `ProductName`, `ProductBrand`, `ProductDescr
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`CustomerId`),
-  ADD UNIQUE KEY `PersonalCardId` (`CardNumber`),
-  ADD UNIQUE KEY `Passwrd` (`Passwrd`);
+  ADD UNIQUE KEY `PersonalCardId` (`CardNumber`);
 
 --
 -- Indexes for table `customerorder`
@@ -184,19 +186,19 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `CustomerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CustomerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customerorder`
 --
 ALTER TABLE `customerorder`
-  MODIFY `OrderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `OrderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `orderitem`
 --
 ALTER TABLE `orderitem`
-  MODIFY `OrderItemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `OrderItemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `product`
